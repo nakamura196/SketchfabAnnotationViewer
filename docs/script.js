@@ -2,9 +2,10 @@
 const iframe = document.getElementById('api-frame');
 const client = new Sketchfab(iframe);
 
+const urlParams = new URLSearchParams(window.location.search);
 // SketchfabモデルIDを指定
-const modelId = '02add905e79c446994f971cbcf443815';
-const pos = 2
+const modelId = urlParams.get('id') || '02add905e79c446994f971cbcf443815'; // 'id'パラメータを取得
+const pos = parseInt(urlParams.get('pos'), 10) || 0;
 
 // APIのオプションを指定してモデルをロード
 client.init(modelId, {
@@ -46,4 +47,6 @@ function focusAnnotation(api, annotationIndex) {
     api.gotoAnnotation(annotationIndex, {
         preventCameraAnimation: false, // アニメーションを許可
     });
+    // api.showAnnotation(annotationIndex); // アノテーションを表示
+    // api.showAnnotationTooltip(annotationIndex); // アノテーションツールチップを表示
 }
